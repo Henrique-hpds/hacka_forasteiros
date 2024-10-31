@@ -1,0 +1,6 @@
+[submodule "terraform-examples"]
+	path = terraform-examples
+	url = https://github.com/MagaluCloud/terraform-examples.git
+[submodule "magalu"]
+	path = magalu
+	url = https://github.com/MagaluCloud/magalu.git

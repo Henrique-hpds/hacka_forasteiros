@@ -10,6 +10,8 @@ def generate_terraform_script(
     storage_key_secret: str,
     ssh_private_key_path: str,
 ) -> str:
+    name = name.lower()
+
     i = 0
     r = 0
     while i < len(PROFILES):

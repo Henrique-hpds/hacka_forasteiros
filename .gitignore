@@ -1,0 +1,7 @@
+env/
+*.pyc
+teste
+.terraform*
+terraform.tfstate
+out.txt
+terraform.tfstate.backup

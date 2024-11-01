@@ -77,6 +77,9 @@ def main():
         "-ss", "--storage_key_secret", help="Storage key secret", required=True
     )
 
+    # ssh_private_key_path
+    app_create.add_argument("-sp", "--ssh_private_key_path", help="SSH private key path", required=True)
+
     # Comando 'volume'
     volume_parser = subparsers.add_parser("volume", help="Volume commands")
     volume_subparsers = volume_parser.add_subparsers(dest="subcommand")
@@ -232,6 +235,7 @@ def main():
                 ssh_key_name=args.ssh_key_name,
                 storage_key_id=args.storage_key_id,
                 storage_key_secret=args.storage_key_secret,
+                ssh_private_key_path=args.ssh_private_key_path,
             )
             os.makedirs(f"{args.name}", exist_ok=True)
             file = open(f"{args.name}/{args.name}.tf", "w")

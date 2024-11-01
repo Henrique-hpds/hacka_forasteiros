@@ -8,6 +8,7 @@ def generate_terraform_script(
     ssh_key_name: str,
     storage_key_id: str,
     storage_key_secret: str,
+    ssh_private_key_path: str,
 ) -> str:
     i = 0
     r = 0
@@ -64,6 +65,27 @@ resource "mgc_dbaas_instances" "{database_name}" {{
   volume = {{
     size = {database_volume_size}
     type = "CLOUD_NVME_15K"
+  }}
+}}
+
+resource "null_resource" "docker_container" {{
+  depends_on = [mgc_virtual_machine_instances.{name}-machine]
+
+  provisioner "remote-exec" {{
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y docker.io",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+      "sudo docker run --name docker-nginx -d -p 80:80 nginx"  # Altere para o seu container desejado
+    ]
+
+    connection {{
+      type        = "ssh"
+      host        = mgc_virtual_machine_instances.{name}-machine.network.public_address
+      user        = "ubuntu"  # Use o usuário correto para a imagem Ubuntu
+      private_key = file("{ssh_private_key_path}")  # O caminho para sua chave SSH
+    }}
   }}
 }}
 

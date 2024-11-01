@@ -2,6 +2,7 @@ import sys
 import argparse
 from database import generate_terraform_script, list_database_profiles
 from machine import generate_machine_terraform_script, list_machine_profiles
+from disk import generate_disk_terraform_script
 from constants import FLAVORS_IDS, ENGINES_ID, MACHINES, SYSTEMS, DISKS
 
 
@@ -66,6 +67,10 @@ def main():
     volume_create = volume_subparsers.add_parser("create", help="Create a new volume")
     volume_delete = volume_subparsers.add_parser("delete", help="Delete a volume")
     volume_help = volume_subparsers.add_parser("help", help="Help for volume commands")
+
+    volume_create.add_argument("-n", "--volume_name", help="Name of the volume", required=True)
+    volume_create.add_argument(
+        "-s", "--volume_size", help="Size of the volume in GB", type=int, default=10)
 
     # Comando 'machine'
     machine_parser = subparsers.add_parser("machine", help="Machine commands")
@@ -150,6 +155,14 @@ def main():
                 machine_name=args.machine_name,
                 image_name=args.image_name,
                 ssh_key_name=args.ssh_key_name,
+            )
+            print("Generated Terraform Script:")
+            print(script)
+
+    elif args.command == "volume":
+        if args.subcommand == "create":
+            script = generate_disk_terraform_script(
+                volume_name=args.volume_name, volume_size=args.volume_size
             )
             print("Generated Terraform Script:")
             print(script)

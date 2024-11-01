@@ -110,6 +110,10 @@ Este projeto é uma interface de linha de comando (CLI) para gerenciar recursos 
      - `-u` ou `--user`: Nome de usuário para a aplicação
      - `-p` ou `--password`: Senha da aplicação
      - `-c` ou `--code`: Código da aplicação
+     - `-k` ou `--ssh_key_name`: Nome da chave ssh configurada no MGC
+     - `-s` ou `--storage_key_id`: ID do key par do storage key
+     - `-ss` ou `--storage_key_secret`: Secret do key par do storage key
+     - `-sp` ou `--ssh_private_key_path`: Path para chave privada utilizada para acessar a VM via SSH
 
 ## Exemplos
 
@@ -130,7 +134,7 @@ Este projeto é uma interface de linha de comando (CLI) para gerenciar recursos 
 
 4. **Criar uma Aplicação**
    ```bash
-   python main.py application create -n MeuApp -u usuario -p senha123 -c appCode123
+   python main.py application create -n my_app -c PIOT12 -k my_key_name -s my_key_id -ss my_key_secret -u username -p password -sp ~/.ssh/my_private_key
    ```
 
 ## Ajuda
@@ -145,6 +149,8 @@ Para ajuda específica em cada comando e subcomando:
 python main.py <comando> --help
 ```
 
-## Observação
+## Observações
 
 Este projeto assume que você tenha uma configuração de ambiente pronta para o uso do Terraform, incluindo as credenciais necessárias. Ajuste os parâmetros no arquivo `constants.py` para refletir as configurações e IDs de flavor, engine, máquinas e imagens disponíveis.
+
+Para que o projeto funcione corretamente e necessario que o login utilizando o mgc cli tenha sido realizado, além disto apenas o comando application gera o arquivo terraform e executa o mesmo, os outros param logo após a geração.

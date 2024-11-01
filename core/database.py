@@ -1,6 +1,6 @@
 # database.py
 
-from constants import FLAVORS_IDS, ENGINES_ID
+from core.constants import FLAVORS_IDS, ENGINES_ID
 
 
 def generate_terraform_script(

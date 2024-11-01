@@ -1,4 +1,4 @@
-from constants import PROFILES, DISKS, MACHINES, SYSTEMS, FLAVORS_IDS, ENGINES_ID
+from core.constants import PROFILES, DISKS, MACHINES, SYSTEMS, FLAVORS_IDS, ENGINES_ID
 
 
 def list_profiles():

@@ -1,4 +1,4 @@
-def generate_storage_terraform_script(bucket_name, api_key, key_id, key_secret):
+def generate_storage_terraform_script(bucket_name, key_id, key_secret):
     script = f"""
 terraform {{
   required_providers {{
@@ -19,7 +19,6 @@ resource "mgc_object_storage_buckets" "my-bucket" {{
 provider "mgc" {{
   alias = "sudeste"
   region = "br-se1"
-  api_key = "{api_key}"
   object_storage = {{
     key_pair = {{ 
       key_id = "{key_id}"

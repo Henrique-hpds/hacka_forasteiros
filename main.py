@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 from core.database import generate_terraform_script, list_database_profiles
@@ -5,6 +6,7 @@ from core.machine import generate_machine_terraform_script, list_machine_profile
 from core.disk import generate_disk_terraform_script
 from core.profiles import list_profiles
 from core.storage import generate_storage_terraform_script
+from core.application import generate_terraform_script
 from core.constants import FLAVORS_IDS, ENGINES_ID, MACHINES, SYSTEMS, DISKS, PROFILES
 
 
@@ -66,6 +68,15 @@ def main():
     )
     app_create.add_argument("-k", "--ssh_key_name", help="SSH key name", required=True)
 
+    # storage_key_id
+    app_create.add_argument(
+        "-s", "--storage_key_id", help="Storage key id", required=True
+    )
+    # strage_key_secret
+    app_create.add_argument(
+        "-ss", "--storage_key_secret", help="Storage key secret", required=True
+    )
+
     # Comando 'volume'
     volume_parser = subparsers.add_parser("volume", help="Volume commands")
     volume_subparsers = volume_parser.add_subparsers(dest="subcommand")
@@ -87,11 +98,14 @@ def main():
     storage_parser = subparsers.add_parser("storage", help="Storage commands")
     storage_subparsers = storage_parser.add_subparsers(dest="subcommand")
 
-    storage_list = storage_subparsers.add_parser("list", help="List all storage profiles")
-    storage_create = storage_subparsers.add_parser("create", help="Create a new storage")
+    storage_list = storage_subparsers.add_parser(
+        "list", help="List all storage profiles"
+    )
+    storage_create = storage_subparsers.add_parser(
+        "create", help="Create a new storage"
+    )
 
     storage_create.add_argument("-n", "--name", help="Name of the storage")
-    storage_create.add_argument("-a", "--api-key", help="API Key of the storage")
     storage_create.add_argument("-s", "--key-key", help="Secret Key of the storage")
     storage_create.add_argument("-i", "--key-id", help="Bucket of the storage")
 
@@ -209,12 +223,29 @@ def main():
                 print(
                     f"- ID: {profile['id']}, Application: {profile['name']}, CODE: {profile['code']}"
                 )
+        elif args.subcommand == "create":
+            script = generate_terraform_script(
+                profile_code=args.code,
+                user=args.user,
+                name=args.name,
+                password=args.password,
+                ssh_key_name=args.ssh_key_name,
+                storage_key_id=args.storage_key_id,
+                storage_key_secret=args.storage_key_secret,
+            )
+            os.makedirs(f"{args.name}", exist_ok=True)
+            file = open(f"{args.name}/{args.name}.tf", "w")
+            file.write(script)
+            file.close()
+            os.chdir(f"{args.name}")
+            os.system(f"terraform init")
+            os.system(f"terraform apply -auto-approve")
+            print("Application created successfully")
 
     elif args.command == "storage":
         if args.subcommand == "create":
             script = generate_storage_terraform_script(
                 bucket_name=args.name,
-                api_key=args.api_key,
                 key_id=args.key_id,
                 key_secret=args.key_secret,
             )

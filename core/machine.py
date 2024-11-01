@@ -1,5 +1,5 @@
 # machine_profiles.py
-from constants import MACHINES, SYSTEMS
+from core.constants import MACHINES, SYSTEMS
 
 
 def generate_machine_terraform_script(name, machine_name, image_name, ssh_key_name):

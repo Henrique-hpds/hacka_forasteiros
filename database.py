@@ -2,7 +2,10 @@
 
 from constants import FLAVORS_IDS, ENGINES_ID
 
-def generate_terraform_script(flavor_id, db_name, user, password, engine_id, volume_size):
+
+def generate_terraform_script(
+    flavor_id, db_name, user, password, engine_id, volume_size
+):
     # Gera o script Terraform com base nos parâmetros fornecidos
     script = f"""terraform {{
   required_providers {{
@@ -25,6 +28,7 @@ resource "mgc_dbaas_instances" "{db_name}" {{
 }}
 """
     return script
+
 
 def list_database_profiles():
     # Lista todos os perfis de banco de dados

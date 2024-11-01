@@ -1,6 +1,7 @@
 # machine_profiles.py
 from constants import MACHINES, SYSTEMS
 
+
 def generate_machine_terraform_script(name, machine_name, image_name, ssh_key_name):
     """
     Gera um script Terraform para uma máquina virtual com as especificações fornecidas.
@@ -34,6 +35,7 @@ resource "mgc_virtual_machine_instances" "basic_instance" {{
 }}
     """
     return script
+
 
 def list_machine_profiles():
     """

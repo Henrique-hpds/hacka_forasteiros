@@ -1,11 +1,10 @@
 import sys
 import argparse
-from core.database import generate_terraform_script, list_database_profiles
-from core.machine import generate_machine_terraform_script, list_machine_profiles
-from core.disk import generate_disk_terraform_script
-from core.profiles import list_profiles
-from core.storage import generate_storage_terraform_script
-from core.constants import FLAVORS_IDS, ENGINES_ID, MACHINES, SYSTEMS, DISKS, PROFILES
+from database import generate_terraform_script, list_database_profiles
+from machine import generate_machine_terraform_script, list_machine_profiles
+from disk import generate_disk_terraform_script
+from profiles import list_profiles
+from constants import FLAVORS_IDS, ENGINES_ID, MACHINES, SYSTEMS, DISKS, PROFILES
 
 
 def main():
@@ -209,17 +208,6 @@ def main():
                 print(
                     f"- ID: {profile['id']}, Application: {profile['name']}, CODE: {profile['code']}"
                 )
-
-    elif args.command == "storage":
-        if args.subcommand == "create":
-            script = generate_storage_terraform_script(
-                bucket_name=args.name,
-                api_key=args.api_key,
-                key_id=args.key_id,
-                key_secret=args.key_secret,
-            )
-            print("Generated Terraform Script:")
-            print(script)
 
     # Exibir os comandos e subcomandos
     print(f"Command: {args.command}")

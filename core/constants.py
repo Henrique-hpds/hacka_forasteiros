@@ -216,3 +216,52 @@ DISKS = [
         "description": "Destinado a workloads extremos de IOPS, como análises complexas e IA em tempo real, garantindo baixa latência e eficiência máxima.",
     },
 ]
+
+
+PROFILES = [
+    {
+        "id": 1,
+        "code": "PDSC01",
+        "name": "High Performance Data Science",
+        "machine_id": "BV8-32-100",
+        "system_id": "cloud-ubuntu-24.04 LTS",
+        "disk_id": "55bd5b41-52ee-4fac-8ae9-7d48c9bd92cc",
+        "database_id": "784b7041-3e27-41f5-b31c-0a147d6e98e1",
+    },
+    {
+        "id": 2,
+        "code": "PEC02",
+        "name": "E-commerce Platform",
+        "machine_id": "BV4-8-100",
+        "system_id": "cloud-ubuntu-24.04 LTS",
+        "disk_id": "e05791b9-77f4-4e4a-a67c-a9a84ddd38cc",
+        "database_id": "a31e3ac5-845a-4fef-b2c3-e101ae25acb5",
+    },
+    {
+        "id": 3,
+        "code": "PAM03",
+        "name": "Mobile Applications",
+        "machine_id": "BV8-16-100",
+        "system_id": "cloud-ubuntu-24.04 LTS",
+        "disk_id": "b74d1968-dd43-4136-ab63-193fcc71097e",
+        "database_id": "8916323b-458f-4acf-92bf-5734b92bba61",
+    },
+    {
+        "id": 4,
+        "code": "PS04",
+        "name": "Streaming Services",
+        "machine_id": "BV8-32-100",
+        "system_id": "cloud-ubuntu-24.04 LTS",
+        "disk_id": "cd031307-f387-4f2a-bf1c-d70b1698d433",
+        "database_id": "09106b02-5cfc-4d9b-afa2-2433d3458b61",
+    },
+    {
+        "id": 5,
+        "code": "PAW05",
+        "name": "Lightweight Web Applications",
+        "machine_id": "BV2-2-40",
+        "system_id": "cloud-ubuntu-24.04 LTS",
+        "disk_id": "cd99ea02-45fc-4f4a-9c50-d75706f39174",
+        "database_id": "8bbe8e01-40c8-4d2b-80e8-189debc44b1c",
+    },
+]
